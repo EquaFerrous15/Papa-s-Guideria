@@ -1,4 +1,4 @@
-from AbstractCustomWidget import AbstractCustomWidget
+from .AbstractCustomWidget import AbstractCustomWidget
 
 
 class AbstractScreen(AbstractCustomWidget):
