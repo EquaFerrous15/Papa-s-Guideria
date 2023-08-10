@@ -2,7 +2,7 @@ from PyQt5.QtWidgets import QWidget
 
 
 class AbstractCustomWidget(QWidget):
-    """A custom complex widget."""
+    """A custom complex widget. Override create_ui for usage."""
 
     def __init__(self, parent=None):
         super().__init__(parent)
