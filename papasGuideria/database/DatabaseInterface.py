@@ -1,11 +1,11 @@
+from __future__ import annotations
 import sqlite3
-from typing import Self
 
 
 class DatabaseInterface:
     """An interface with GuideDatabase.db."""
-    _DATABASE_PATH = "resources/GuideDatabase.db"       # Path from main.py
-    _INSTANCE: Self = None
+    _DATABASE_PATH = "papasGuideria/resources/GuideDatabase.db"       # Path from main.py
+    _INSTANCE: DatabaseInterface = None
 
     def __init__(self):
         self.connection: sqlite3.Connection | None = None
