@@ -10,9 +10,9 @@ class CustomImageLabel(QLabel):
         super().__init__(parent)
 
         self.original_pixmap = QPixmap()
-        self.original_pixmap.load(image_path)
-        if self.original_pixmap is not None:
-            self.setPixmap(self.original_pixmap)
+        if not self.original_pixmap.load(image_path):
+            print(f"Image not found. ({image_path})")
+        self.setPixmap(self.original_pixmap)
 
     def resize_image(self, width: int, height: int):
         """Resizes the image to the given pixel lengths."""
