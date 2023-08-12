@@ -10,9 +10,9 @@ class CustomImageLabel(QLabel):
         super().__init__(parent)
 
         self.original_pixmap = QPixmap()
-        self.original_pixmap.load(image_path)
-        if self.original_pixmap is not None:
-            self.setPixmap(self.original_pixmap)
+        if not self.original_pixmap.load(image_path):
+            print(f"Image not found. ({image_path})")
+        self.setPixmap(self.original_pixmap)
 
     def resize_image(self, width: int, height: int):
         """Resizes the image to the given pixel lengths."""
@@ -21,6 +21,13 @@ class CustomImageLabel(QLabel):
 
     def resize_image_keep_aspect(self, width: int, height: int):
         """Resizes the image to the given pixel lengths, keeping the aspect ratio."""
+        resized_pixmap = self.original_pixmap.scaled(width, height, Qt.KeepAspectRatio, Qt.SmoothTransformation)
+        self.setPixmap(resized_pixmap)
+
+    def resize_by_scale_factor(self, scale_factor: float):
+        """Resizes the image by the given scale factor."""
+        width = int(self.original_pixmap.width() * scale_factor)
+        height = int(self.original_pixmap.height() * scale_factor)
         resized_pixmap = self.original_pixmap.scaled(width, height, Qt.KeepAspectRatio, Qt.SmoothTransformation)
         self.setPixmap(resized_pixmap)
 
