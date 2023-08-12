@@ -24,3 +24,10 @@ class CustomImageLabel(QLabel):
         resized_pixmap = self.original_pixmap.scaled(width, height, Qt.KeepAspectRatio, Qt.SmoothTransformation)
         self.setPixmap(resized_pixmap)
 
+    def resize_by_scale_factor(self, scale_factor: float):
+        """Resizes the image by the given scale factor."""
+        width = int(self.original_pixmap.width() * scale_factor)
+        height = int(self.original_pixmap.height() * scale_factor)
+        resized_pixmap = self.original_pixmap.scaled(width, height, Qt.KeepAspectRatio, Qt.SmoothTransformation)
+        self.setPixmap(resized_pixmap)
+
