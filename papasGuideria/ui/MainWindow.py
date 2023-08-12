@@ -17,7 +17,7 @@ class MainWindow(QMainWindow):
         """Set up the ui of the widget."""
         # Overall style
         self.setStyleSheet(
-            "background-color: white;")
+            "background: white;")
 
         # Widgets
         self.main_widget = QStackedWidget()
@@ -33,6 +33,5 @@ class MainWindow(QMainWindow):
         self.main_widget.setCurrentIndex(0)
         size_hint = self.main_widget.currentWidget().sizeHint()
         if size_hint.isValid():
-            self.main_widget.setFixedSize(size_hint)
-
+            self.setFixedSize(size_hint)
 
