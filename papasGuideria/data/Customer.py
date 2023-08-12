@@ -1,4 +1,5 @@
 from __future__ import annotations
+import os
 from papasGuideria.database.DatabaseInterface import DatabaseInterface
 
 
@@ -8,9 +9,17 @@ class Customer:
 
     def __init__(self, customer_name: str):
         self.name = customer_name
-        self.main_picture = ""
+        self.main_portrait = ""
         self.main_title = ""
         self.game_info: dict[str, dict[str, str]] = {}
+
+        # Set up main picture
+        normalised_name = self.name.lower().replace(" ", "_")
+        portrait_path = f"papasGuideria/resources/images/customer_portraits/{normalised_name}.jpg"
+        if os.path.exists(portrait_path):
+            self.main_portrait = portrait_path
+        else:
+            self.main_portrait = "papasGuideria/resources/images/customer_portraits/default.jpg"
 
         # Set up game info dictionary
         db_cursor = DatabaseInterface.get_cursor()
