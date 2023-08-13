@@ -1,8 +1,8 @@
 from PyQt5.QtCore import Qt
 from PyQt5.QtGui import QMouseEvent
 from PyQt5.QtWidgets import QFrame, QHBoxLayout, QLabel, QSizePolicy, QGridLayout
-from papasGuideria.ui.generic.AbstractCustomWidget import AbstractCustomWidget
-from papasGuideria.ui.generic.CustomImageLabel import CustomImageLabel
+from ..generic.AbstractCustomWidget import AbstractCustomWidget
+from ..generic.CustomImageLabel import CustomImageLabel
 from papasGuideria.data.Customer import Customer
 
 
