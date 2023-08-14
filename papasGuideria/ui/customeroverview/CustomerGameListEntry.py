@@ -1,4 +1,5 @@
 from PyQt5.QtCore import Qt
+from PyQt5.QtGui import QMouseEvent
 from PyQt5.QtWidgets import QGridLayout, QFrame, QLabel, QHBoxLayout, QSizePolicy
 
 from ..generic.AbstractCustomWidget import AbstractCustomWidget
@@ -12,6 +13,8 @@ class CustomerGameListEntry(AbstractCustomWidget):
     
     def __init__(self, customer: Customer, game: Game, parent=None):
         self._clickable = True
+        self._customer = customer
+        self._game = game
         super().__init__(parent, customer, game)
     
     def create_ui(self, customer: Customer, game: Game):
@@ -69,5 +72,12 @@ class CustomerGameListEntry(AbstractCustomWidget):
             "margin: 0px 10px 0px 10px;"
         )
         frame_layout.addWidget(arrow_image)
+
+    def mousePressEvent(self, event: QMouseEvent):
+        super().mousePressEvent(event)
+
+        if not self._clickable:
+            return
+        print(f"Move to info screen - {self._customer.name} {self._game.name}")
 
 
