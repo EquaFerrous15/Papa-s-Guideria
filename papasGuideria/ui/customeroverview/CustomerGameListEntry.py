@@ -2,6 +2,8 @@ from PyQt5.QtCore import Qt
 from PyQt5.QtGui import QMouseEvent
 from PyQt5.QtWidgets import QGridLayout, QFrame, QLabel, QHBoxLayout, QSizePolicy
 
+from ..MainWindow import MainWindow
+from ..customergameinfo.CustomerInfoScreen import CustomerInfoScreen
 from ..generic.AbstractCustomWidget import AbstractCustomWidget
 from ..generic.CustomImageLabel import CustomImageLabel
 from ...data.Customer import Customer
@@ -78,6 +80,6 @@ class CustomerGameListEntry(AbstractCustomWidget):
 
         if not self._clickable:
             return
-        print(f"Move to info screen - {self._customer.name} {self._game.name}")
 
-
+        main_window: MainWindow = self.window()
+        main_window.show_new_screen(CustomerInfoScreen(self._customer, self._game))
