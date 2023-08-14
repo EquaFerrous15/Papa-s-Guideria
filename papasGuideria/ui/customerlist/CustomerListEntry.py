@@ -4,6 +4,8 @@ from PyQt5.QtWidgets import QFrame, QHBoxLayout, QLabel, QSizePolicy, QGridLayou
 from ..generic.AbstractCustomWidget import AbstractCustomWidget
 from ..generic.CustomImageLabel import CustomImageLabel
 from papasGuideria.data.Customer import Customer
+from ..MainWindow import MainWindow
+from ..customeroverview.CustomerOverviewScreen import CustomerOverviewScreen
 
 
 class CustomerListEntry(AbstractCustomWidget):
@@ -65,5 +67,7 @@ class CustomerListEntry(AbstractCustomWidget):
     # Move to the overview screen for the customer
     def mousePressEvent(self, event: QMouseEvent):
         super().mousePressEvent(event)
-        print(f"Show overview screen {self._customer.name}")
+
+        main_window: MainWindow = self.window()
+        main_window.show_new_screen(CustomerOverviewScreen(self._customer))
 
