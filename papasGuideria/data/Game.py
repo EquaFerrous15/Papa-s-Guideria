@@ -1,4 +1,7 @@
 from __future__ import annotations
+
+import os
+
 from papasGuideria.database.DatabaseInterface import DatabaseInterface
 
 
@@ -8,6 +11,15 @@ class Game:
 
     def __init__(self, game_name: str):
         self.name = game_name
+        self.icon = ""
+
+        # Set up icon
+        normalised_name = self.name.lower().replace(" ", "_")
+        icon_path = f"papasGuideria/resources/images/game_icons/{normalised_name}.jpg"
+        if os.path.exists(icon_path):
+            self.icon = icon_path
+        else:
+            self.icon = "papasGuideria/resources/images/game_icons/default.jpg"
 
     @classmethod
     def get_game_dict(cls):
