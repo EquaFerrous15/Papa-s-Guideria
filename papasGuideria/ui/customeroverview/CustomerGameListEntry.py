@@ -28,8 +28,8 @@ class CustomerGameListEntry(AbstractCustomWidget):
         frame.setStyleSheet(
             "*{background-color: '#dedede';}" +
             f"QFrame#{frame.objectName()}" +
-            "{border-radius: 30px;" +
-            "min-width: 300px;}"
+            "{border-radius: 15px;" +
+            "min-width: 400px;}"
         )
         layout.addWidget(frame, 0, 0)
 

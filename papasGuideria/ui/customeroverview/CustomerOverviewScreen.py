@@ -1,5 +1,5 @@
 from PyQt5.QtCore import Qt
-from PyQt5.QtWidgets import QGridLayout, QScrollArea, QFrame
+from PyQt5.QtWidgets import QGridLayout, QScrollArea, QFrame, QSizePolicy
 
 from .CustomerGameList import CustomerGameList
 from ..generic.AbstractScreen import AbstractScreen
@@ -35,4 +35,8 @@ class CustomerOverviewScreen(AbstractScreen):
 
         # Game list widget
         game_list = CustomerGameList(customer)
+        game_list.setStyleSheet(
+            "margin: 0px 10px 0px 10px;"
+        )
         game_scroll_area.setWidget(game_list)
+        game_scroll_area.setFixedWidth(game_list.sizeHint().width() + 25)
