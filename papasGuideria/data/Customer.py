@@ -14,8 +14,8 @@ class Customer:
         self.game_info: dict[str, dict[str, str]] = {}
 
         # Set up main picture
-        normalised_name = self.name.lower().replace(" ", "_")
-        portrait_path = f"papasGuideria/resources/images/customer_portraits/{normalised_name}.jpg"
+        self.normalised_name = self.name.lower().replace(" ", "_")
+        portrait_path = f"papasGuideria/resources/images/customer_portraits/{self.normalised_name}.jpg"
         if os.path.exists(portrait_path):
             self.main_portrait = portrait_path
         else:
@@ -26,12 +26,24 @@ class Customer:
         db_cursor.execute("SELECT * FROM customer_game_info WHERE customer=?", (self.name,))
         game_data_rows = db_cursor.fetchall()
         for row in game_data_rows:
+            # Get general info
             game_specific_info: dict[str, str] = {
                 "Title": row["title"],
                 "Unlock": row["unlock"],
                 "Favourite Holiday": row["favourite_holiday"],
                 "Group": row["customer_group"]
             }
+
+            # Find portrait images
+            game_normalised_name = row["game"].lower().replace(" ", "_")
+            game_portrait_path = ("papaGuideria/resources/images/customer_portraits/" +
+                                  f"{game_normalised_name}/{self.normalised_name}.jpg")
+            if os.path.exists(game_portrait_path):
+                game_specific_info["Portrait"] = game_portrait_path
+            else:
+                game_specific_info["Portrait"] = "papasGuideria/resources/images/customer_portraits/default.jpg"
+
+            # Finalise the info dictionary
             self.game_info[row["game"]] = game_specific_info
 
     @classmethod
