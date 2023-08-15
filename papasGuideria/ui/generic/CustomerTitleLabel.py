@@ -22,7 +22,7 @@ class CustomerTitleLabel(QLabel):
             case "Local":
                 text_colour = "#FEC418"
             case _:
-                text_colour = "#CBCBCB"
+                text_colour = "#a19f9f"
         self._text_style = f"color: '{text_colour}';"
 
         # Title label
