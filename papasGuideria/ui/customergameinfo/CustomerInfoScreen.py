@@ -22,11 +22,11 @@ class CustomerInfoScreen(AbstractScreen):
         # Customer game portrait
         game_portrait = CustomImageLabel(customer.game_info[game.name]["Portrait"])
         game_portrait.resize_by_scale_factor(3)
-        layout.addWidget(game_portrait, 0, 0, -1, 1)
+        layout.addWidget(game_portrait, 0, 0)
 
         # Customer header
         customer_header = CustomerNameHeader(customer.name, customer.game_info[game.name]["Title"])
-        layout.addWidget(customer_header, 0, 1, 1, -1, Qt.AlignTop)
+        layout.addWidget(customer_header, 0, 1, 1, -1, Qt.AlignTop | Qt.AlignHCenter)
 
         # Customer info section
         customer_info = CustomerInfoWidget(customer, game)
@@ -35,3 +35,8 @@ class CustomerInfoScreen(AbstractScreen):
             "margin: 10px 30px 0px 30px;"
         )
         layout.addWidget(customer_info, 1, 1, Qt.AlignTop)
+
+        # Order ticket image
+        order_ticket = CustomImageLabel(customer.game_info[game.name]["Order"])
+        order_ticket.resize_by_scale_factor(1.1)
+        layout.addWidget(order_ticket, 1, 0, Qt.AlignHCenter)

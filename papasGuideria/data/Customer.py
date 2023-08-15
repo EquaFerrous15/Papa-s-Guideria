@@ -6,7 +6,7 @@ from papasGuideria.database.DatabaseInterface import DatabaseInterface
 class Customer:
     """Class containing data pertaining to a customer."""
     _CUSTOMER_DICT: dict[str, Customer] = {}
-    INFO_DONT_DISPLAY = ["Title", "Portrait"]       # Which game info bits to not display in the info widget.
+    INFO_DONT_DISPLAY = ["Title", "Portrait", "Order"]       # Which game info bits to not display in the info widget.
 
     def __init__(self, customer_name: str):
         self.name = customer_name
@@ -43,6 +43,19 @@ class Customer:
                 game_specific_info["Portrait"] = game_portrait_path
             else:
                 game_specific_info["Portrait"] = "papasGuideria/resources/images/customer_portraits/default.jpg"
+
+            # Find order ticket images
+            order_ticket_path = ("papasGuideria/resources/images/order_tickets/" +
+                                 f"{game_normalised_name}/{self.normalised_name}.png")
+            if os.path.exists(order_ticket_path):
+                game_specific_info["Order"] = order_ticket_path
+            else:
+                order_default_path = ("papasGuideria/resources/images/order_tickets/" +
+                                      f"{game_normalised_name}/default.png")
+                if os.path.exists(order_default_path):
+                    game_specific_info["Order"] = order_default_path
+                else:
+                    game_specific_info["Order"] = "papasGuideria/resources/images/order_tickets/default.png"
 
             # Finalise the info dictionary
             self.game_info[row["game"]] = game_specific_info
