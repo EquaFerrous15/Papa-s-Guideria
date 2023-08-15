@@ -1,6 +1,7 @@
 from PyQt5.QtCore import Qt
-from PyQt5.QtWidgets import QGridLayout
+from PyQt5.QtWidgets import QGridLayout, QSizePolicy
 
+from .CustomerInfoWidget import CustomerInfoWidget
 from ..generic.AbstractScreen import AbstractScreen
 from ..generic.CustomImageLabel import CustomImageLabel
 from ..generic.CustomerNameHeader import CustomerNameHeader
@@ -26,3 +27,11 @@ class CustomerInfoScreen(AbstractScreen):
         # Customer header
         customer_header = CustomerNameHeader(customer.name, customer.game_info[game.name]["Title"])
         layout.addWidget(customer_header, 0, 1, 1, -1, Qt.AlignTop)
+
+        # Customer info section
+        customer_info = CustomerInfoWidget(customer, game)
+        customer_info.setSizePolicy(QSizePolicy.MinimumExpanding, QSizePolicy.Fixed)
+        customer_info.setStyleSheet(
+            "margin: 10px 30px 0px 30px;"
+        )
+        layout.addWidget(customer_info, 1, 1, Qt.AlignTop)

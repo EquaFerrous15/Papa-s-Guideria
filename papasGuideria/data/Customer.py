@@ -6,6 +6,7 @@ from papasGuideria.database.DatabaseInterface import DatabaseInterface
 class Customer:
     """Class containing data pertaining to a customer."""
     _CUSTOMER_DICT: dict[str, Customer] = {}
+    INFO_DONT_DISPLAY = ["Title", "Portrait"]       # Which game info bits to not display in the info widget.
 
     def __init__(self, customer_name: str):
         self.name = customer_name
