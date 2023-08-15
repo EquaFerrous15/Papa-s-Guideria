@@ -1,5 +1,5 @@
 from PyQt5.QtCore import Qt
-from PyQt5.QtWidgets import QGridLayout, QSizePolicy, QVBoxLayout, QHBoxLayout, QSpacerItem
+from PyQt5.QtWidgets import QSizePolicy, QVBoxLayout, QHBoxLayout, QSpacerItem
 
 from .CustomerInfoWidget import CustomerInfoWidget
 from ..generic.AbstractScreen import AbstractScreen
@@ -41,6 +41,13 @@ class CustomerInfoScreen(AbstractScreen):
         customer_header = CustomerNameHeader(customer.name, customer.game_info[game.name]["Title"])
         customer_header.setSizePolicy(QSizePolicy.MinimumExpanding, QSizePolicy.Fixed)
         right_layout.addWidget(customer_header)
+
+        # Game icon
+        game_icon = CustomImageLabel(game.icon)
+        game_icon.setStyleSheet(
+            "margin: 15px 0px 0px 0px;"
+        )
+        right_layout.addWidget(game_icon, alignment=Qt.AlignCenter)
 
         # Customer info section
         customer_info = CustomerInfoWidget(customer, game)
