@@ -25,13 +25,13 @@ class MainWindow(QMainWindow):
         self.setCentralWidget(self.main_widget)
 
         # Toolbar
-        toolbar = QToolBar()
-        toolbar.setMovable(False)
-        self.addToolBar(toolbar)
+        self.toolbar = QToolBar()
+        self.toolbar.setMovable(False)
+        self.addToolBar(self.toolbar)
 
         # Back button
         back_button_icon = self.style().standardIcon(QStyle.SP_ArrowBack)
-        self.back_button_action: QAction = toolbar.addAction(back_button_icon, "Back")
+        self.back_button_action: QAction = self.toolbar.addAction(back_button_icon, "Back")
         self.back_button_action.triggered.connect(lambda: self.return_to_previous_screen())
 
     def show_new_screen(self, new_screen: AbstractScreen) -> None:
@@ -44,7 +44,9 @@ class MainWindow(QMainWindow):
         self.main_widget.setCurrentIndex(0)
         size_hint = self.main_widget.currentWidget().sizeHint()
         if size_hint.isValid():
-            self.setFixedSize(size_hint)
+            xSize = size_hint.width()
+            ySize = size_hint.height() + self.toolbar.sizeHint().height()
+            self.setFixedSize(xSize, ySize)
 
         # If on main screen, do not allow to go back, as it will crash the program.
         if self.main_widget.count() == 1:
