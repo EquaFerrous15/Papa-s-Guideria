@@ -16,11 +16,11 @@ class Customer:
 
         # Set up main picture
         self.normalised_name = self.name.lower().replace(" ", "_")
-        portrait_path = f"papasGuideria/resources/images/customer_portraits/{self.normalised_name}.jpg"
+        portrait_path = f"papasGuideria/resources/images/customer_portraits/{self.normalised_name}.png"
         if os.path.exists(portrait_path):
             self.main_portrait = portrait_path
         else:
-            self.main_portrait = "papasGuideria/resources/images/customer_portraits/default.jpg"
+            self.main_portrait = "papasGuideria/resources/images/customer_portraits/default.png"
 
         # Set up game info dictionary
         db_cursor = DatabaseInterface.get_cursor()
@@ -38,11 +38,11 @@ class Customer:
             # Find portrait images
             game_normalised_name = row["game"].lower().replace(" ", "_")
             game_portrait_path = ("papaGuideria/resources/images/customer_portraits/" +
-                                  f"{game_normalised_name}/{self.normalised_name}.jpg")
+                                  f"{game_normalised_name}/{self.normalised_name}.png")
             if os.path.exists(game_portrait_path):
                 game_specific_info["Portrait"] = game_portrait_path
             else:
-                game_specific_info["Portrait"] = "papasGuideria/resources/images/customer_portraits/default.jpg"
+                game_specific_info["Portrait"] = "papasGuideria/resources/images/customer_portraits/default.png"
 
             # Find order ticket images
             order_ticket_path = ("papasGuideria/resources/images/order_tickets/" +

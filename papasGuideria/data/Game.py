@@ -15,11 +15,11 @@ class Game:
 
         # Set up icon
         self.normalised_name = self.name.lower().replace(" ", "_")
-        icon_path = f"papasGuideria/resources/images/game_icons/{self.normalised_name}.jpg"
+        icon_path = f"papasGuideria/resources/images/game_icons/{self.normalised_name}.png"
         if os.path.exists(icon_path):
             self.icon = icon_path
         else:
-            self.icon = "papasGuideria/resources/images/game_icons/default.jpg"
+            self.icon = "papasGuideria/resources/images/game_icons/default.png"
 
     @classmethod
     def get_game_dict(cls):
