@@ -37,7 +37,7 @@ class Customer:
 
             # Find portrait images
             game_normalised_name = row["game"].lower().replace(" ", "_")
-            game_portrait_path = ("papaGuideria/resources/images/customer_portraits/" +
+            game_portrait_path = ("papasGuideria/resources/images/customer_portraits/" +
                                   f"{game_normalised_name}/{self.normalised_name}.png")
             if os.path.exists(game_portrait_path):
                 game_specific_info["Portrait"] = game_portrait_path
