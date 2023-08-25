@@ -4,6 +4,7 @@ from PyQt5.QtWidgets import QGridLayout, QLabel, QSizePolicy
 from ..generic.AbstractCustomWidget import AbstractCustomWidget
 from ...data.Customer import Customer
 from ...data.Game import Game
+from ...resources.ResourceManager import ResourceManager
 
 
 class CustomerInfoWidget(AbstractCustomWidget):
@@ -33,7 +34,7 @@ class CustomerInfoWidget(AbstractCustomWidget):
             info_name_label = QLabel(item[0])
             info_name_label.setStyleSheet(
                 "color: '#505050';" +
-                "font: 25px;"
+                f"font: 25px '{ResourceManager.get_font('body')}';"
             )
             layout.addWidget(info_name_label, grid_row, 0)
 
