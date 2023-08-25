@@ -9,11 +9,13 @@ class ResourceManager:
 
     _setup_completed = False
     _font_dict: dict[str, str] = {}
+    _image_dict: dict[str, any] = {}
 
     @classmethod
     def resources_setup(cls):
         """Set up all resources."""
         cls._font_setup()
+        cls._image_setup()
         cls._setup_completed = True
 
     @classmethod
@@ -66,5 +68,37 @@ class ResourceManager:
                 QFontDatabase.addApplicationFont(font_path)
                 cls._font_dict[name] = font_name
 
+    @classmethod
+    def get_image(cls, image_name: str):
+        """Gets an image from the image dictionary."""
+        if not cls._setup_completed:
+            cls.resources_setup()
 
+        if image_name not in cls._image_dict.keys():
+            return "null"
 
+        return cls._image_dict[image_name]
+
+    @classmethod
+    def image_exists(cls, image_name: str):
+        """Returns if the given image exists in the image dictionary."""
+        if image_name in cls._image_dict.keys():
+            return True
+        else:
+            return False
+
+    @classmethod
+    def _image_setup(cls):
+        """Set up the image dictionary by finding the images."""
+        cls._image_dict = {}
+
+        path = "papasGuideria/resources/images"
+        for root, dirs, files in os.walk(path):
+            root = root.replace("\\", "/")
+            folder = root.replace(path, "").lstrip("/")
+
+            for file in files:
+                file_name = f"{folder}/{file}"
+                file_name = file_name.replace(".png", "")
+                file_path = f"{root}/{file}"
+                cls._image_dict[file_name] = file_path

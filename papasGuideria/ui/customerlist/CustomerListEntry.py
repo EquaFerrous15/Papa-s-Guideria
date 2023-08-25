@@ -58,7 +58,7 @@ class CustomerListEntry(AbstractCustomWidget):
         frame_layout.addWidget(name_label)
 
         # Arrow icon
-        arrow_image = CustomImageLabel("papasGuideria/resources/images/general/forward_arrow.png")
+        arrow_image = CustomImageLabel("general/forward_arrow")
         arrow_image.setStyleSheet(
             "margin: 0px 10px 0px 10px;"
         )

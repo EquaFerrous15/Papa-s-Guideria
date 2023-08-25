@@ -1,6 +1,7 @@
 from __future__ import annotations
 import os
 from papasGuideria.database.DatabaseInterface import DatabaseInterface
+from papasGuideria.resources.ResourceManager import ResourceManager
 
 
 class Customer:
@@ -16,11 +17,11 @@ class Customer:
 
         # Set up main picture
         self.normalised_name = self.name.lower().replace(" ", "_")
-        portrait_path = f"papasGuideria/resources/images/customer_portraits/{self.normalised_name}.png"
+        portrait_path = f"customer_portraits/{self.normalised_name}"
         if os.path.exists(portrait_path):
             self.main_portrait = portrait_path
         else:
-            self.main_portrait = "papasGuideria/resources/images/customer_portraits/default.png"
+            self.main_portrait = "customer_portraits/default"
 
         # Set up game info dictionary
         db_cursor = DatabaseInterface.get_cursor()
@@ -37,25 +38,22 @@ class Customer:
 
             # Find portrait images
             game_normalised_name = row["game"].lower().replace(" ", "_")
-            game_portrait_path = ("papasGuideria/resources/images/customer_portraits/" +
-                                  f"{game_normalised_name}/{self.normalised_name}.png")
+            game_portrait_path = f"customer_portraits/{game_normalised_name}/{self.normalised_name}"
             if os.path.exists(game_portrait_path):
                 game_specific_info["Portrait"] = game_portrait_path
             else:
-                game_specific_info["Portrait"] = "papasGuideria/resources/images/customer_portraits/default.png"
+                game_specific_info["Portrait"] = "customer_portraits/default"
 
             # Find order ticket images
-            order_ticket_path = ("papasGuideria/resources/images/order_tickets/" +
-                                 f"{game_normalised_name}/{self.normalised_name}.png")
+            order_ticket_path = f"order_tickets/{game_normalised_name}/{self.normalised_name}"
             if os.path.exists(order_ticket_path):
                 game_specific_info["Order"] = order_ticket_path
             else:
-                order_default_path = ("papasGuideria/resources/images/order_tickets/" +
-                                      f"{game_normalised_name}/default.png")
+                order_default_path = f"order_tickets/{game_normalised_name}/default"
                 if os.path.exists(order_default_path):
                     game_specific_info["Order"] = order_default_path
                 else:
-                    game_specific_info["Order"] = "papasGuideria/resources/images/order_tickets/default.png"
+                    game_specific_info["Order"] = "order_tickets/default"
 
             # Finalise the info dictionary
             self.game_info[row["game"]] = game_specific_info

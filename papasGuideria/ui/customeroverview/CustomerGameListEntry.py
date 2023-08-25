@@ -68,7 +68,7 @@ class CustomerGameListEntry(AbstractCustomWidget):
         self.setCursor(Qt.PointingHandCursor)
 
         # Arrow icon
-        arrow_image = CustomImageLabel("papasGuideria/resources/images/general/forward_arrow.png")
+        arrow_image = CustomImageLabel("general/forward_arrow")
         arrow_image.resize_by_scale_factor(0.75)
         arrow_image.setStyleSheet(
             "margin: 0px 10px 0px 10px;"
