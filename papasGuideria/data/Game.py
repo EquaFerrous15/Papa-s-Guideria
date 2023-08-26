@@ -17,7 +17,7 @@ class Game:
         # Set up icon
         self.normalised_name = self.name.lower().replace(" ", "_")
         icon_path = f"game_icons/{self.normalised_name}"
-        if os.path.exists(icon_path):
+        if ResourceManager.image_exists(icon_path):
             self.icon = icon_path
         else:
             self.icon = "game_icons/default"
