@@ -1,13 +1,14 @@
 from PyQt5.QtWidgets import QGridLayout, QScrollArea, QWidget, QVBoxLayout, QSizePolicy
-from ..generic.AbstractScreen import AbstractScreen
 from .CustomerListEntry import CustomerListEntry
 from papasGuideria.data.Customer import Customer
 
 
-class CustomerListScreen(AbstractScreen):
+class CustomerListScreen(QWidget):
     """Screen showing a list of all customers."""
 
-    def create_ui(self):
+    def __init__(self):
+        super().__init__()
+
         # Main layout
         layout = QGridLayout(self)
 
@@ -28,10 +29,10 @@ class CustomerListScreen(AbstractScreen):
         for customer in Customer.get_customer_dict().values():
             new_entry = CustomerListEntry(customer)
             new_entry.setStyleSheet(
+                new_entry.styleSheet() +
                 "margin: 5px 0px 5px 0px;"
             )
             customer_list_layout.addWidget(new_entry)
 
         # Ensure the scroll area is big enough without having a horizontal scroll bar
         scroll_area.setMinimumSize(int(customer_list_widget.sizeHint().width() + 25), 500)
-

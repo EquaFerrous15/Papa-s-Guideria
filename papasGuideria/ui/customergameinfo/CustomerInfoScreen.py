@@ -1,21 +1,19 @@
 from PyQt5.QtCore import Qt
-from PyQt5.QtWidgets import QSizePolicy, QVBoxLayout, QHBoxLayout, QSpacerItem
+from PyQt5.QtWidgets import QSizePolicy, QVBoxLayout, QHBoxLayout, QSpacerItem, QWidget
 
 from .CustomerInfoWidget import CustomerInfoWidget
-from ..generic.AbstractScreen import AbstractScreen
 from ..generic.CustomImageLabel import CustomImageLabel
 from ..generic.CustomerNameHeader import CustomerNameHeader
 from ...data.Customer import Customer
 from ...data.Game import Game
 
 
-class CustomerInfoScreen(AbstractScreen):
+class CustomerInfoScreen(QWidget):
     """A screen showing info about the customer from a particular game."""
 
     def __init__(self, customer: Customer, game: Game, parent=None):
-        super().__init__(parent, customer, game)
+        super().__init__(parent)
 
-    def create_ui(self, customer: Customer, game: Game):
         # Main layout
         layout = QHBoxLayout(self)
 
@@ -59,5 +57,3 @@ class CustomerInfoScreen(AbstractScreen):
 
         # Right spacer moves everything up
         right_layout.addSpacerItem(QSpacerItem(1, 1, QSizePolicy.MinimumExpanding, QSizePolicy.MinimumExpanding))
-
-

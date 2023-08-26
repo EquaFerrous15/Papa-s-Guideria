@@ -1,5 +1,4 @@
 from PyQt5.QtWidgets import QMainWindow, QStackedWidget, QToolBar, QAction, QWidget, QStyle
-from .generic.AbstractScreen import AbstractScreen
 
 
 class MainWindow(QMainWindow):
@@ -34,7 +33,7 @@ class MainWindow(QMainWindow):
         self.back_button_action: QAction = self.toolbar.addAction(back_button_icon, "Back")
         self.back_button_action.triggered.connect(lambda: self.return_to_previous_screen())
 
-    def show_new_screen(self, new_screen: AbstractScreen) -> None:
+    def show_new_screen(self, new_screen: QWidget) -> None:
         """Shows the new screen over any previous screens."""
         self.main_widget.insertWidget(0, new_screen)
         self.update_window()

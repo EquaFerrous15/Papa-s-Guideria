@@ -1,20 +1,18 @@
 from PyQt5.QtCore import Qt
-from PyQt5.QtWidgets import QGridLayout, QScrollArea, QFrame, QSizePolicy
+from PyQt5.QtWidgets import QGridLayout, QScrollArea, QFrame, QSizePolicy, QWidget
 
 from .CustomerGameList import CustomerGameList
-from ..generic.AbstractScreen import AbstractScreen
 from ..generic.CustomImageLabel import CustomImageLabel
 from papasGuideria.data.Customer import Customer
 from ..generic.CustomerNameHeader import CustomerNameHeader
 
 
-class CustomerOverviewScreen(AbstractScreen):
+class CustomerOverviewScreen(QWidget):
     """Screen showing an overview of a customer."""
 
     def __init__(self, customer: Customer, parent=None):
-        super().__init__(parent, customer)
+        super().__init__(parent)
 
-    def create_ui(self, customer: Customer):
         # Main layout
         layout = QGridLayout(self)
 

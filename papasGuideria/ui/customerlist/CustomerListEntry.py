@@ -1,41 +1,33 @@
 from PyQt5.QtCore import Qt
 from PyQt5.QtGui import QMouseEvent
 from PyQt5.QtWidgets import QFrame, QHBoxLayout, QLabel, QSizePolicy, QGridLayout
-from ..generic.AbstractCustomWidget import AbstractCustomWidget
 from ..generic.CustomImageLabel import CustomImageLabel
 from papasGuideria.data.Customer import Customer
 from ..MainWindow import MainWindow
 from ..customeroverview.CustomerOverviewScreen import CustomerOverviewScreen
 
 
-class CustomerListEntry(AbstractCustomWidget):
+class CustomerListEntry(QFrame):
     """Entry of a customer to be displayed in the customer list."""
 
     def __init__(self, customer: Customer, parent=None):
-        super().__init__(parent, customer)
+        super().__init__(parent)
         self._customer = customer
 
-    def create_ui(self, customer: Customer):
         self.setCursor(Qt.PointingHandCursor)
 
-        # Main layout
-        layout = QGridLayout(self)
-        layout.setContentsMargins(0, 0, 0, 0)
-
         # Main frame
-        frame = QFrame()
-        frame.setObjectName("MainFrame")
-        frame.setSizePolicy(QSizePolicy.MinimumExpanding, QSizePolicy.Fixed)
-        frame.setStyleSheet(
+        self.setObjectName("MainFrame")
+        self.setSizePolicy(QSizePolicy.MinimumExpanding, QSizePolicy.Fixed)
+        self.setStyleSheet(
             "*{background-color: '#dedede';}" +
-            f"QFrame#{frame.objectName()}" +
+            f"QFrame#{self.objectName()}" +
             "{border-radius: 20px;" +
             "min-width: 400px;}"
         )
-        layout.addWidget(frame)
 
         # Frame layout
-        frame_layout = QHBoxLayout(frame)
+        frame_layout = QHBoxLayout(self)
 
         # Customer portrait
         portrait = CustomImageLabel(customer.main_portrait)

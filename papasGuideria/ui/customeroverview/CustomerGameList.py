@@ -1,18 +1,16 @@
-from PyQt5.QtWidgets import QVBoxLayout
+from PyQt5.QtWidgets import QVBoxLayout, QWidget
 
 from .CustomerGameListEntry import CustomerGameListEntry
-from ..generic.AbstractCustomWidget import AbstractCustomWidget
 from ...data.Customer import Customer
 from ...data.Game import Game
 
 
-class CustomerGameList(AbstractCustomWidget):
+class CustomerGameList(QWidget):
     """A widget displaying all games a customer is in and their unlock."""
 
     def __init__(self, customer: Customer, parent=None):
-        super().__init__(parent, customer)
+        super().__init__(parent)
 
-    def create_ui(self, customer: Customer):
         # Main layout
         layout = QVBoxLayout(self)
 

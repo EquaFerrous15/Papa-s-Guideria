@@ -1,7 +1,5 @@
 from PyQt5.QtWidgets import QLabel, QGridLayout
 
-from .AbstractCustomWidget import AbstractCustomWidget
-
 
 class CustomerTitleLabel(QLabel):
     """A label to display a customer's title with special formatting depending on the title."""

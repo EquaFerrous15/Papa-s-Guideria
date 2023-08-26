@@ -1,19 +1,17 @@
 from PyQt5.QtCore import Qt
-from PyQt5.QtWidgets import QGridLayout, QLabel, QSizePolicy
+from PyQt5.QtWidgets import QGridLayout, QLabel, QSizePolicy, QWidget
 
-from ..generic.AbstractCustomWidget import AbstractCustomWidget
 from ...data.Customer import Customer
 from ...data.Game import Game
 from ...resources.ResourceManager import ResourceManager
 
 
-class CustomerInfoWidget(AbstractCustomWidget):
+class CustomerInfoWidget(QWidget):
     """Widget displaying all game information for a customer."""
 
     def __init__(self, customer: Customer, game: Game, parent=None):
-        super().__init__(parent, customer, game)
+        super().__init__(parent)
 
-    def create_ui(self, customer: Customer, game: Game):
         # Main layout
         layout = QGridLayout(self)
         layout.setHorizontalSpacing(50)
@@ -47,7 +45,3 @@ class CustomerInfoWidget(AbstractCustomWidget):
             layout.addWidget(info_label, grid_row, 1, Qt.AlignRight)
 
             grid_row += 1
-
-
-
-

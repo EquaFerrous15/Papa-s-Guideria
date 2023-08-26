@@ -4,39 +4,32 @@ from PyQt5.QtWidgets import QGridLayout, QFrame, QLabel, QHBoxLayout, QSizePolic
 
 from ..MainWindow import MainWindow
 from ..customergameinfo.CustomerInfoScreen import CustomerInfoScreen
-from ..generic.AbstractCustomWidget import AbstractCustomWidget
 from ..generic.CustomImageLabel import CustomImageLabel
 from ...data.Customer import Customer
 from ...data.Game import Game
 
 
-class CustomerGameListEntry(AbstractCustomWidget):
+class CustomerGameListEntry(QFrame):
     """An entry in the customer game list. Displays the games a customer is in and their unlock."""
     
     def __init__(self, customer: Customer, game: Game, parent=None):
+        super().__init__(parent)
+
         self._clickable = True
         self._customer = customer
         self._game = game
-        super().__init__(parent, customer, game)
-    
-    def create_ui(self, customer: Customer, game: Game):
-        # Dummy layout
-        layout = QGridLayout(self)
-        layout.setContentsMargins(0, 0, 0, 0)
 
         # Main frame
-        frame = QFrame()
-        frame.setObjectName("MainFrame")
-        frame.setStyleSheet(
+        self.setObjectName("MainFrame")
+        self.setStyleSheet(
             "*{background-color: '#dedede';}" +
-            f"QFrame#{frame.objectName()}" +
+            f"QFrame#{self.objectName()}" +
             "{border-radius: 15px;" +
             "min-width: 400px;}"
         )
-        layout.addWidget(frame, 0, 0)
 
         # Frame layout
-        frame_layout = QHBoxLayout(frame)
+        frame_layout = QHBoxLayout(self)
 
         # Game icon
         game_icon = CustomImageLabel(game.icon)
@@ -53,7 +46,7 @@ class CustomerGameListEntry(AbstractCustomWidget):
             unlock_text = "Absent"
             self._clickable = False
         # Unlock text label
-        unlock_label = QLabel(unlock_text, frame)
+        unlock_label = QLabel(unlock_text, self)
         unlock_label.setStyleSheet(
             "font: 25px;" +
             "padding: 0px 10px 0px 0px;"
