@@ -15,6 +15,10 @@
 
 ##############
 
+[names]
+name = "Baloo"
+file = "Baloo-Regular.ttf"
+
 [body]
 name = "Tajawal Black"
 file = "Tajawal-Black.ttf"

@@ -28,10 +28,6 @@ class CustomerListScreen(QWidget):
         # Customer entries
         for customer in Customer.get_customer_dict().values():
             new_entry = CustomerListEntry(customer)
-            new_entry.setStyleSheet(
-                new_entry.styleSheet() +
-                "margin: 5px 0px 5px 0px;"
-            )
             customer_list_layout.addWidget(new_entry)
 
         # Ensure the scroll area is big enough without having a horizontal scroll bar

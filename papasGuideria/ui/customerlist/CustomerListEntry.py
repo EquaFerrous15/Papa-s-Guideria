@@ -5,6 +5,7 @@ from ..generic.CustomImageLabel import CustomImageLabel
 from papasGuideria.data.Customer import Customer
 from ..MainWindow import MainWindow
 from ..customeroverview.CustomerOverviewScreen import CustomerOverviewScreen
+from ...resources.ResourceManager import ResourceManager
 
 
 class CustomerListEntry(QFrame):
@@ -23,7 +24,8 @@ class CustomerListEntry(QFrame):
             "*{background-color: '#dedede';}" +
             f"QFrame#{self.objectName()}" +
             "{border-radius: 20px;" +
-            "min-width: 400px;}"
+            "min-width: 400px;" +
+            "margin: 2px 0px 2px 0px;}"
         )
 
         # Frame layout
@@ -31,11 +33,11 @@ class CustomerListEntry(QFrame):
 
         # Customer portrait
         portrait = CustomImageLabel(customer.main_portrait)
-        portrait.resize_by_scale_factor(1.5)
+        portrait.resize_image(75, 120)
         portrait.setSizePolicy(QSizePolicy.Fixed, QSizePolicy.Fixed)
         portrait.setStyleSheet(
             "border: 2px solid '#505050';" +
-            "margin: 2px;"
+            "margin: 0px 0px 0px 10px;"
         )
         frame_layout.addWidget(portrait)
 
@@ -44,7 +46,7 @@ class CustomerListEntry(QFrame):
         name_label.setSizePolicy(QSizePolicy.MinimumExpanding, QSizePolicy.Fixed)
         name_label.setStyleSheet(
             "color: '#505050';" +
-            "font: 30px Helvetica;" +
+            f"font: 40px '{ResourceManager.get_font('names')}';" +
             "margin: 0px 0px 0px 10px;"
         )
         frame_layout.addWidget(name_label)
