@@ -7,6 +7,7 @@ from ..customergameinfo.CustomerInfoScreen import CustomerInfoScreen
 from ..generic.CustomImageLabel import CustomImageLabel
 from ...data.Customer import Customer
 from ...data.Game import Game
+from ...resources.ResourceManager import ResourceManager
 
 
 class CustomerGameListEntry(QFrame):
@@ -43,12 +44,16 @@ class CustomerGameListEntry(QFrame):
         try:
             unlock_text = customer.game_info[game.name]["Unlock"]
         except KeyError:
-            unlock_text = "Absent"
+            # If customer doesn't appear in a game, make the button unavailable
+            unlock_text = ""
             self._clickable = False
+            game_icon.greyscale(True)
+
         # Unlock text label
         unlock_label = QLabel(unlock_text, self)
         unlock_label.setStyleSheet(
-            "font: 25px;" +
+            f"font: 25px '{ResourceManager.get_font('body')}';" +
+            "color: '#505050';" +
             "padding: 0px 10px 0px 0px;"
         )
         frame_layout.addWidget(unlock_label)
@@ -62,7 +67,7 @@ class CustomerGameListEntry(QFrame):
 
         # Arrow icon
         arrow_image = CustomImageLabel("general/forward_arrow")
-        arrow_image.resize_by_scale_factor(0.75)
+        arrow_image.resize_image(30, 30)
         arrow_image.setStyleSheet(
             "margin: 0px 10px 0px 10px;"
         )

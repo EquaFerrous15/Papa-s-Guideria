@@ -18,7 +18,7 @@ class CustomerOverviewScreen(QWidget):
 
         # Customer portrait
         portrait_label = CustomImageLabel(customer.main_portrait)
-        portrait_label.resize_by_scale_factor(3)
+        portrait_label.resize_image(150, 240)
         layout.addWidget(portrait_label, 0, 0, -1, 1, Qt.AlignTop)
 
         # Customer header

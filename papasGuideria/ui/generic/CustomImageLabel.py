@@ -1,5 +1,5 @@
 from PyQt5.QtWidgets import QLabel
-from PyQt5.QtGui import QPixmap
+from PyQt5.QtGui import QPixmap, QImage
 from PyQt5.QtCore import Qt
 
 from papasGuideria.resources.ResourceManager import ResourceManager
@@ -33,4 +33,14 @@ class CustomImageLabel(QLabel):
         height = int(self.original_pixmap.height() * scale_factor)
         resized_pixmap = self.original_pixmap.scaled(width, height, Qt.KeepAspectRatio, Qt.SmoothTransformation)
         self.setPixmap(resized_pixmap)
+
+    def greyscale(self, is_greyscale: bool):
+        """Sets the image as greyscale or normal colours."""
+        if is_greyscale:
+            image = QPixmap.toImage(self.original_pixmap)
+            greyscale_image = image.convertToFormat(QImage.Format_Grayscale8)
+            grey_pixmap = QPixmap.fromImage(greyscale_image)
+            self.setPixmap(grey_pixmap)
+        else:
+            self.setPixmap(self.original_pixmap)
 

@@ -2,6 +2,7 @@ from PyQt5.QtCore import Qt
 from PyQt5.QtWidgets import QFrame, QGridLayout, QSizePolicy, QLabel, QHBoxLayout
 
 from .CustomerTitleLabel import CustomerTitleLabel
+from ...resources.ResourceManager import ResourceManager
 
 
 class CustomerNameHeader(QFrame):
@@ -17,7 +18,6 @@ class CustomerNameHeader(QFrame):
             "*{background-color: '#dedede';}"
             f"QFrame#{self.objectName()}" +
             "{border-radius: 30px;" +
-            "margin: 0px 0px 0px 5px;" +
             "min-width: 400px;}"
         )
 
@@ -28,16 +28,16 @@ class CustomerNameHeader(QFrame):
         name_label = QLabel(customer_name)
         name_label.setSizePolicy(QSizePolicy.MinimumExpanding, QSizePolicy.Fixed)
         name_label.setStyleSheet(
-            "padding: 5px 50px 5px 10px;" +
+            "margin: 0px 50px 0px 10px;" +
             "color: '#505050';" +
-            "font: 36px;"
+            f"font: 40px '{ResourceManager.get_font('names')}';"
         )
         frame_layout.addWidget(name_label)
 
         # Title label
         title_label = CustomerTitleLabel(customer_title)
         title_label.setStyleSheet(
-            "padding: 0px 10px 0px 0px;" +
-            "font: 30px;"
+            "margin: 0px 10px 0px 0px;" +
+            f"font: 30px '{ResourceManager.get_font('body')}';"
         )
         frame_layout.addWidget(title_label)
