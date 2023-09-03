@@ -23,12 +23,12 @@ class CustomerInfoScreen(QWidget):
 
         # Customer game portrait
         game_portrait = CustomImageLabel(customer.game_info[game.name]["Portrait"])
-        game_portrait.resize_by_scale_factor(3)
+        game_portrait.resize_image(150, 240)
         left_layout.addWidget(game_portrait)
 
         # Order ticket image
         order_ticket = CustomImageLabel(customer.game_info[game.name]["Order"])
-        order_ticket.resize_by_scale_factor(1.1)
+        order_ticket.resize_image(150, 280)
         left_layout.addWidget(order_ticket, alignment=Qt.AlignHCenter)
 
         # Right layout
@@ -43,7 +43,7 @@ class CustomerInfoScreen(QWidget):
         # Game icon
         game_icon = CustomImageLabel(game.icon)
         game_icon.setStyleSheet(
-            "margin: 15px 0px 0px 0px;"
+            "margin: 5px 0px 0px 0px;"
         )
         right_layout.addWidget(game_icon, alignment=Qt.AlignCenter)
 
@@ -51,7 +51,7 @@ class CustomerInfoScreen(QWidget):
         customer_info = CustomerInfoWidget(customer, game)
         customer_info.setSizePolicy(QSizePolicy.MinimumExpanding, QSizePolicy.Fixed)
         customer_info.setStyleSheet(
-            "margin: 10px 30px 0px 30px;"
+            "margin: 5px 30px 0px 30px;"
         )
         right_layout.addWidget(customer_info)
 
