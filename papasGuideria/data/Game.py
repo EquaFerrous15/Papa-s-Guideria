@@ -13,6 +13,7 @@ class Game:
     def __init__(self, game_name: str):
         self.name = game_name
         self.icon = ""
+        self.colour = ""
 
         # Set up icon
         self.normalised_name = self.name.lower().replace(" ", "_")
@@ -21,6 +22,9 @@ class Game:
             self.icon = icon_path
         else:
             self.icon = "game_icons/default"
+
+        # Get gameria colour
+        self.colour = ResourceManager.get_colour(self.normalised_name)
 
     @classmethod
     def get_game_dict(cls):

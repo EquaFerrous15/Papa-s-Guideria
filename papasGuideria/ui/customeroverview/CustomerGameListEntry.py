@@ -70,6 +70,7 @@ class CustomerGameListEntry(QFrame):
             unlock_text_colour = ResourceManager.get_colour("jojo_blue")
         elif "worker" in customer_title:
             unlock_text = "Worker"
+            unlock_text_colour = game.colour
 
         # Unlock label
         unlock_label = QLabel(unlock_text, self)

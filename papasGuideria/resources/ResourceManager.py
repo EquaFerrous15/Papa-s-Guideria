@@ -123,5 +123,21 @@ class ResourceManager:
             "text_light_grey": "#a19f9f",
             "text_dark_grey": "#505050",
             "closer_red": "#CD0101",
-            "jojo_blue": "#0167CD"
+            "jojo_blue": "#0167CD",
+            "pizzeria": "#3e5a27",
+            "burgeria": "#08359a",
+            "taco_mia": "#c44000",
+            "freezeria": "#7c0c9e",
+            "pancakeria": "#dbb304",
+            "wingeria": "#8e0404",
+            "hot_doggeria": "#089374",
+            "cupcakeria": "#bf317d",
+            "pastaria": "#8a9709",
+            "donuteria": "#3da0b5",
+            "cheeseria": "#d17b02",
+            "bakeria": "#6c0e28",
+            "sushiria": "#002919",
+            "scooperia": "#ae96e0",
+            "mocharia": "#4c3120",
+            "cluckeria": "#d55b44"
         }
