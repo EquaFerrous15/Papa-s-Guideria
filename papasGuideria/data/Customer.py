@@ -36,6 +36,17 @@ class Customer:
                 "Group": row["customer_group"]
             }
 
+            # Format unlock text
+            unlock = game_specific_info["Unlock"]
+            # If unlock text is just a number, prefix it with "Rank"
+            try:
+                int(unlock)
+                new_unlock = f"Rank {unlock}"
+                game_specific_info["Unlock"] = new_unlock
+            except (ValueError, TypeError):
+                # Don't do anything if it is not just a number
+                pass
+
             # Find portrait images
             game_normalised_name = row["game"].lower().replace(" ", "_")
             game_portrait_path = f"customer_portraits/{game_normalised_name}/{self.normalised_name}"

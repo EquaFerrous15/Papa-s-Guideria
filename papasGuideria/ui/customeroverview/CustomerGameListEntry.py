@@ -40,25 +40,47 @@ class CustomerGameListEntry(QFrame):
         )
         frame_layout.addWidget(game_icon)
 
-        # Check unlock text to see if customer is absent
+        # ---- Unlock text label ----
+        # Check to see if customer is absent from the game
+        unlock_text_colour = ResourceManager.get_colour("text_dark_grey")
+
         try:
             unlock_text = customer.game_info[game.name]["Unlock"]
         except KeyError:
             # If customer doesn't appear in a game, make the button unavailable
-            unlock_text = ""
             self._clickable = False
             game_icon.greyscale(True)
+            unlock_text = "Absent"
+            unlock_text_colour = ResourceManager.get_colour("text_light_grey")
 
-        # Unlock text label
+        # If the customer is special for that game, display that instead of their unlock
+        try:
+            customer_title = customer.game_info[game.name]["Title"].lower()
+        except (KeyError, AttributeError):
+            customer_title = ""
+
+        if customer_title is None:
+            customer_title = ""
+
+        if "closer" in customer_title:
+            unlock_text = "Closer"
+            unlock_text_colour = ResourceManager.get_colour("closer_red")
+        elif "food critic" in customer_title:
+            unlock_text = "Food Critic"
+            unlock_text_colour = ResourceManager.get_colour("jojo_blue")
+        elif "worker" in customer_title:
+            unlock_text = "Worker"
+
+        # Unlock label
         unlock_label = QLabel(unlock_text, self)
         unlock_label.setStyleSheet(
             f"font: 25px '{ResourceManager.get_font('body')}';" +
-            "color: '#505050';" +
+            f"color: '{unlock_text_colour}';" +
             "padding: 0px 10px 0px 0px;"
         )
         frame_layout.addWidget(unlock_label)
 
-        # If the customer is absent, do not proceed
+        # Terminate here if the customer is absent, so the button isn't clickable
         if not self._clickable:
             return
 
