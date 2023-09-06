@@ -10,12 +10,14 @@ class ResourceManager:
     _setup_completed = False
     _font_dict: dict[str, str] = {}
     _image_dict: dict[str, any] = {}
+    _colour_dict: dict[str, str] = {}
 
     @classmethod
     def resources_setup(cls):
         """Set up all resources."""
         cls._font_setup()
         cls._image_setup()
+        cls._colour_setup()
         cls._setup_completed = True
 
     @classmethod
@@ -102,3 +104,24 @@ class ResourceManager:
                 file_name = file_name.replace(".png", "")
                 file_path = f"{root}/{file}"
                 cls._image_dict[file_name] = file_path
+
+    @classmethod
+    def get_colour(cls, colour_name: str) -> str:
+        """Returns a colour hex-code string."""
+        if not cls._setup_completed:
+            cls.resources_setup()
+
+        if colour_name not in cls._colour_dict.keys():
+            return "#000000"
+
+        return cls._colour_dict[colour_name]
+
+    @classmethod
+    def _colour_setup(cls):
+        """Set up the colour dictionary."""
+        cls._colour_dict = {
+            "text_light_grey": "#a19f9f",
+            "text_dark_grey": "#505050",
+            "closer_red": "#CD0101",
+            "jojo_blue": "#0167CD"
+        }
