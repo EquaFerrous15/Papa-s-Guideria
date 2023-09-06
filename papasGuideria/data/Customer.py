@@ -12,7 +12,7 @@ class Customer:
     def __init__(self, customer_name: str):
         self.name = customer_name
         self.main_portrait = ""
-        self.main_title = ""
+        self.overall_title = ""
         self.game_info: dict[str, dict[str, str]] = {}
 
         # Set up main picture
@@ -64,6 +64,35 @@ class Customer:
 
             # Finalise the info dictionary
             self.game_info[row["game"]] = game_specific_info
+
+        self.overall_title = self._get_customer_overall_title()
+
+    def _get_customer_overall_title(self):
+        """Gets the customer's overall title."""
+        overall_title = ""
+        for game_name, game_info in self.game_info.items():
+            customer_title = game_info["Title"]
+            if customer_title is None:
+                customer_title = ""
+
+            customer_title = customer_title.lower()
+            # If a customer works at a gameria, it takes highest priority.
+            if "worker" in customer_title:
+                overall_title = f"{game_name} Worker"
+                break
+            # Jojo
+            elif "food critic" in customer_title:
+                overall_title = "Food Critic"
+                break
+            # if a customer is still a closer as of the latest game, their title is "closer", otherwise "ex-closer".
+            elif "closer" in customer_title:
+                overall_title = "Closer"
+            elif (overall_title == "Closer") and ("closer" not in customer_title):
+                overall_title = "Ex-closer"
+
+        return overall_title
+
+
 
     @classmethod
     def get_customer_dict(cls):
