@@ -36,7 +36,7 @@ class CustomerInfoScreen(QWidget):
         layout.addLayout(right_layout)
 
         # Customer header
-        customer_header = CustomerNameHeader(customer.name, customer.game_info[game.name]["Title"])
+        customer_header = CustomerNameHeader(customer, game)
         customer_header.setSizePolicy(QSizePolicy.MinimumExpanding, QSizePolicy.Fixed)
         right_layout.addWidget(customer_header)
 

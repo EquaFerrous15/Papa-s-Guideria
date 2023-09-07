@@ -22,7 +22,7 @@ class CustomerOverviewScreen(QWidget):
         layout.addWidget(portrait_label, 0, 0, -1, 1, Qt.AlignTop)
 
         # Customer header
-        customer_header = CustomerNameHeader(customer.name, customer.overall_title)
+        customer_header = CustomerNameHeader(customer)
         layout.addWidget(customer_header, 0, 1, 1, -1, Qt.AlignTop)
 
         # Game list scroll area

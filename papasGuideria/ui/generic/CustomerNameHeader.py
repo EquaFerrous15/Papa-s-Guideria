@@ -1,14 +1,15 @@
-from PyQt5.QtCore import Qt
-from PyQt5.QtWidgets import QFrame, QGridLayout, QSizePolicy, QLabel, QHBoxLayout
+from PyQt5.QtWidgets import QFrame, QSizePolicy, QLabel, QHBoxLayout
 
 from .CustomerTitleLabel import CustomerTitleLabel
+from ...data.Customer import Customer
+from ...data.Game import Game
 from ...resources.ResourceManager import ResourceManager
 
 
 class CustomerNameHeader(QFrame):
     """A header bar displaying a customer's name and title."""
 
-    def __init__(self, customer_name: str, customer_title: str, parent=None):
+    def __init__(self, customer: Customer, game: Game = None, parent=None):
         super().__init__(parent)
 
         bg_colour = ResourceManager.get_colour("bg_dark_grey")
@@ -30,7 +31,7 @@ class CustomerNameHeader(QFrame):
         frame_layout = QHBoxLayout(self)
 
         # Name label
-        name_label = QLabel(customer_name)
+        name_label = QLabel(customer.name)
         name_label.setSizePolicy(QSizePolicy.MinimumExpanding, QSizePolicy.Fixed)
         name_label.setStyleSheet(
             "margin: 0px 50px 0px 10px;" +
@@ -40,7 +41,7 @@ class CustomerNameHeader(QFrame):
         frame_layout.addWidget(name_label)
 
         # Title label
-        title_label = CustomerTitleLabel(customer_title)
+        title_label = CustomerTitleLabel(customer, game)
         title_label.setStyleSheet(
             "margin: 0px 10px 0px 0px;" +
             f"font: 30px '{title_font}';"
