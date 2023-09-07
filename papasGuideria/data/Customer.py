@@ -2,6 +2,7 @@ from __future__ import annotations
 import os
 from papasGuideria.database.DatabaseInterface import DatabaseInterface
 from papasGuideria.resources.ResourceManager import ResourceManager
+from papasGuideria.ui.generic import utility
 
 
 class Customer:
@@ -15,9 +16,10 @@ class Customer:
         self.overall_title = ""
         self.game_info: dict[str, dict[str, str]] = {}
 
+        self._normalised_name = utility.normalise_string(self.name)
+
         # Set up main picture
-        self.normalised_name = self.name.lower().replace(" ", "_")
-        portrait_path = f"customer_portraits/{self.normalised_name}"
+        portrait_path = f"customer_portraits/{self._normalised_name}"
         if ResourceManager.image_exists(portrait_path):
             self.main_portrait = portrait_path
         else:
@@ -49,14 +51,14 @@ class Customer:
 
             # Find portrait images
             game_normalised_name = row["game"].lower().replace(" ", "_")
-            game_portrait_path = f"customer_portraits/{game_normalised_name}/{self.normalised_name}"
+            game_portrait_path = f"customer_portraits/{game_normalised_name}/{self._normalised_name}"
             if ResourceManager.image_exists(game_portrait_path):
                 game_specific_info["Portrait"] = game_portrait_path
             else:
                 game_specific_info["Portrait"] = "customer_portraits/default"
 
             # Find order ticket images
-            order_ticket_path = f"order_tickets/{game_normalised_name}/{self.normalised_name}"
+            order_ticket_path = f"order_tickets/{game_normalised_name}/{self._normalised_name}"
             if ResourceManager.image_exists(order_ticket_path):
                 game_specific_info["Order"] = order_ticket_path
             else:
@@ -91,8 +93,6 @@ class Customer:
                 overall_title = "Ex-closer"
 
         return overall_title
-
-
 
     @classmethod
     def get_customer_dict(cls):

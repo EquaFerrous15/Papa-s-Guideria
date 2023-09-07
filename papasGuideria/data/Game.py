@@ -4,6 +4,7 @@ import os
 
 from papasGuideria.database.DatabaseInterface import DatabaseInterface
 from papasGuideria.resources.ResourceManager import ResourceManager
+from papasGuideria.ui.generic import utility
 
 
 class Game:
@@ -15,16 +16,17 @@ class Game:
         self.icon = ""
         self.colour = ""
 
+        self._normalised_name = utility.normalise_string(self.name)
+
         # Set up icon
-        self.normalised_name = self.name.lower().replace(" ", "_")
-        icon_path = f"game_icons/{self.normalised_name}"
+        icon_path = f"game_icons/{self._normalised_name}"
         if ResourceManager.image_exists(icon_path):
             self.icon = icon_path
         else:
             self.icon = "game_icons/default"
 
         # Get gameria colour
-        self.colour = ResourceManager.get_colour(self.normalised_name)
+        self.colour = ResourceManager.get_colour(self._normalised_name)
 
     @classmethod
     def get_game_dict(cls):
