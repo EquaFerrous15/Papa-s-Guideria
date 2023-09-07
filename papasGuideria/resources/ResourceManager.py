@@ -112,6 +112,7 @@ class ResourceManager:
             cls.resources_setup()
 
         if colour_name not in cls._colour_dict.keys():
+            print(f"Resource retrieval error: Colour {colour_name} not found in colour config.")
             return "#000000"
 
         return cls._colour_dict[colour_name]
@@ -119,25 +120,10 @@ class ResourceManager:
     @classmethod
     def _colour_setup(cls):
         """Set up the colour dictionary."""
-        cls._colour_dict = {
-            "text_light_grey": "#a19f9f",
-            "text_dark_grey": "#505050",
-            "closer_red": "#CD0101",
-            "jojo_blue": "#0167CD",
-            "pizzeria": "#3e5a27",
-            "burgeria": "#08359a",
-            "taco_mia": "#c44000",
-            "freezeria": "#7c0c9e",
-            "pancakeria": "#dbb304",
-            "wingeria": "#8e0404",
-            "hot_doggeria": "#089374",
-            "cupcakeria": "#bf317d",
-            "pastaria": "#8a9709",
-            "donuteria": "#3da0b5",
-            "cheeseria": "#d17b02",
-            "bakeria": "#6c0e28",
-            "sushiria": "#002919",
-            "scooperia": "#ae96e0",
-            "mocharia": "#4c3120",
-            "cluckeria": "#d55b44"
-        }
+        cls._colour_dict = {}
+
+        with open("papasGuideria/resources/colours/colour_config.toml", "rb") as file:
+            config_data = tomllib.load(file)
+
+            for font_name, hexcode in config_data.items():
+                cls._colour_dict[font_name] = hexcode

@@ -1,0 +1,38 @@
+###########
+
+# Colour config file for font / widget colours.
+
+# Colours should be defined as such:
+# colour_name = "hexcode"
+
+# Where hexcode is replaced with the colour hexcode
+# EG: "#000000"
+
+# colour_name is the name of the colour that will be used in the code.
+# If the resource manager cannot find a colour name being referenced in the code, it returns black.
+
+###########
+
+# Text colours
+text_light_grey = "#a19f9f"
+text_dark_grey = "#505050"
+closer_red = "#CD0101"
+jojo_blue = "#0167CD"
+
+# Gameria colours
+pizzeria = "#3e5a27"
+burgeria = "#08359a"
+taco_mia = "#c44000"
+freezeria = "#7c0c9e"
+pancakeria = "#dbb304"
+wingeria = "#8e0404"
+hot_doggeria = "#089374"
+cupcakeria = "#bf317d"
+pastaria = "#8a9709"
+donuteria = "#3da0b5"
+cheeseria = "#d17b02"
+bakeria = "#6c0e28"
+sushiria = "#002919"
+scooperia = "#ae96e0"
+mocharia = "#4c3120"
+cluckeria = "#d55b44"
