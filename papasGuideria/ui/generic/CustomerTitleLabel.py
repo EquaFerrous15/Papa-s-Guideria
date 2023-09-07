@@ -1,5 +1,7 @@
 from PyQt5.QtWidgets import QLabel, QGridLayout
 
+from papasGuideria.resources.ResourceManager import ResourceManager
+
 
 class CustomerTitleLabel(QLabel):
     """A label to display a customer's title with special formatting depending on the title."""
@@ -14,13 +16,13 @@ class CustomerTitleLabel(QLabel):
         # Choose text colour
         match customer_title:
             case "Food Critic":
-                text_colour = "#0167CD"
+                text_colour = ResourceManager.get_colour("jojo_blue")
             case "Closer" | "Ex-Closer":
-                text_colour = "#CD0101"
+                text_colour = ResourceManager.get_colour("closer_red")
             case "Local":
-                text_colour = "#FEC418"
+                text_colour = ResourceManager.get_colour("local")
             case _:
-                text_colour = "#a19f9f"
+                text_colour = ResourceManager.get_colour("text_light_grey")
         self._text_style = f"color: '{text_colour}';"
 
         # Title label

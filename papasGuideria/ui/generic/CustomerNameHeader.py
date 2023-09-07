@@ -11,11 +11,16 @@ class CustomerNameHeader(QFrame):
     def __init__(self, customer_name: str, customer_title: str, parent=None):
         super().__init__(parent)
 
+        bg_colour = ResourceManager.get_colour("bg_dark_grey")
+        name_colour = ResourceManager.get_colour("text_dark_grey")
+        name_font = ResourceManager.get_font("names")
+        title_font = ResourceManager.get_font("body")
+
         # Main frame
         self.setObjectName("MainFrame")
         self.setSizePolicy(QSizePolicy.MinimumExpanding, QSizePolicy.Fixed)
         self.setStyleSheet(
-            "*{background-color: '#dedede';}"
+            f"*{{background-color: '{bg_colour}';}}"
             f"QFrame#{self.objectName()}" +
             "{border-radius: 30px;" +
             "min-width: 400px;}"
@@ -29,8 +34,8 @@ class CustomerNameHeader(QFrame):
         name_label.setSizePolicy(QSizePolicy.MinimumExpanding, QSizePolicy.Fixed)
         name_label.setStyleSheet(
             "margin: 0px 50px 0px 10px;" +
-            "color: '#505050';" +
-            f"font: 40px '{ResourceManager.get_font('names')}';"
+            f"color: '{name_colour}';" +
+            f"font: 40px '{name_font}';"
         )
         frame_layout.addWidget(name_label)
 
@@ -38,6 +43,6 @@ class CustomerNameHeader(QFrame):
         title_label = CustomerTitleLabel(customer_title)
         title_label.setStyleSheet(
             "margin: 0px 10px 0px 0px;" +
-            f"font: 30px '{ResourceManager.get_font('body')}';"
+            f"font: 30px '{title_font}';"
         )
         frame_layout.addWidget(title_label)

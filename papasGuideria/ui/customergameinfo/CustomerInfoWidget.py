@@ -12,6 +12,10 @@ class CustomerInfoWidget(QWidget):
     def __init__(self, customer: Customer, game: Game, parent=None):
         super().__init__(parent)
 
+        text_font = ResourceManager.get_font("body")
+        label_colour = ResourceManager.get_colour("text_dark_grey")
+        info_colour = ResourceManager.get_colour("text_grey")
+
         # Main layout
         layout = QGridLayout(self)
         layout.setHorizontalSpacing(0)
@@ -31,16 +35,16 @@ class CustomerInfoWidget(QWidget):
             # Info item name
             info_name_label = QLabel(item[0])
             info_name_label.setStyleSheet(
-                "color: '#505050';" +
-                f"font: 30px '{ResourceManager.get_font('body')}';"
+                f"color: '{label_colour}';" +
+                f"font: 30px '{text_font}';"
             )
             layout.addWidget(info_name_label, grid_row, 0, Qt.AlignHCenter)
 
             # Actual info text
             info_label = QLabel(item[1])
             info_label.setStyleSheet(
-                "color: '#7a7a7a';" +
-                f"font: 25px '{ResourceManager.get_font('body')}';"
+                f"color: '{info_colour}';" +
+                f"font: 25px '{text_font}';"
             )
             layout.addWidget(info_label, grid_row, 1, Qt.AlignLeft)
 

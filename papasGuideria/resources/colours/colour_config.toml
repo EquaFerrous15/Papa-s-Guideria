@@ -15,9 +15,14 @@
 
 # Text colours
 text_light_grey = "#a19f9f"
+text_grey = "#7a7a7a"
 text_dark_grey = "#505050"
 closer_red = "#CD0101"
 jojo_blue = "#0167CD"
+local = "#FEC418"
+
+# Background colours
+bg_dark_grey = "#dedede"
 
 # Gameria colours
 pizzeria = "#3e5a27"

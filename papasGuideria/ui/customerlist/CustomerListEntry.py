@@ -17,11 +17,15 @@ class CustomerListEntry(QFrame):
 
         self.setCursor(Qt.PointingHandCursor)
 
+        bg_dark_colour = ResourceManager.get_colour("bg_dark_grey")
+        text_colour = ResourceManager.get_colour("text_dark_grey")
+        name_font = ResourceManager.get_font("names")
+
         # Main frame
         self.setObjectName("MainFrame")
         self.setSizePolicy(QSizePolicy.MinimumExpanding, QSizePolicy.Fixed)
         self.setStyleSheet(
-            "*{background-color: '#dedede';}" +
+            f"*{{background-color: '{bg_dark_colour}';}}" +
             f"QFrame#{self.objectName()}" +
             "{border-radius: 20px;" +
             "min-width: 400px;" +
@@ -36,7 +40,7 @@ class CustomerListEntry(QFrame):
         portrait.resize_image(75, 120)
         portrait.setSizePolicy(QSizePolicy.Fixed, QSizePolicy.Fixed)
         portrait.setStyleSheet(
-            "border: 2px solid '#505050';" +
+            f"border: 2px solid '{text_colour}';" +
             "margin: 0px 0px 0px 10px;"
         )
         frame_layout.addWidget(portrait)
@@ -45,8 +49,8 @@ class CustomerListEntry(QFrame):
         name_label = QLabel(customer.name)
         name_label.setSizePolicy(QSizePolicy.MinimumExpanding, QSizePolicy.Fixed)
         name_label.setStyleSheet(
-            "color: '#505050';" +
-            f"font: 40px '{ResourceManager.get_font('names')}';" +
+            f"color: '{text_colour}';" +
+            f"font: 40px '{name_font}';" +
             "margin: 0px 0px 0px 10px;"
         )
         frame_layout.addWidget(name_label)

@@ -20,10 +20,13 @@ class CustomerGameListEntry(QFrame):
         self._customer = customer
         self._game = game
 
+        bg_dark_colour = ResourceManager.get_colour("bg_dark_grey")
+        text_font = ResourceManager.get_font("body")
+
         # Main frame
         self.setObjectName("MainFrame")
         self.setStyleSheet(
-            "*{background-color: '#dedede';}" +
+            f"*{{background-color: '{bg_dark_colour}';}}" +
             f"QFrame#{self.objectName()}" +
             "{border-radius: 15px;" +
             "min-width: 400px;}"
@@ -75,7 +78,7 @@ class CustomerGameListEntry(QFrame):
         # Unlock label
         unlock_label = QLabel(unlock_text, self)
         unlock_label.setStyleSheet(
-            f"font: 25px '{ResourceManager.get_font('body')}';" +
+            f"font: 25px '{text_font}';" +
             f"color: '{unlock_text_colour}';" +
             "padding: 0px 10px 0px 0px;"
         )
