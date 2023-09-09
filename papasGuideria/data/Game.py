@@ -43,7 +43,7 @@ class Game:
         Game._GAME_DICT = {}
 
         db_cursor = DatabaseInterface.get_cursor()
-        db_cursor.execute("SELECT * FROM games")
+        db_cursor.execute("SELECT * FROM games ORDER BY game_number")
         game_rows = db_cursor.fetchall()
 
         for row in game_rows:
