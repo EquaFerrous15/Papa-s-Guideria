@@ -25,18 +25,33 @@ class Customer:
         else:
             self.main_portrait = "customer_portraits/default"
 
-        # Set up game info dictionary
+        # Get list of games in order
         db_cursor = DatabaseInterface.get_cursor()
-        db_cursor.execute("SELECT * FROM customer_game_info WHERE customer=?", (self.name,))
-        game_data_rows = db_cursor.fetchall()
-        for row in game_data_rows:
+        db_cursor.execute("SELECT * FROM games ORDER BY game_number")
+        game_list = db_cursor.fetchall()
+
+        # Set up game info list for each game
+        for game in game_list:
+            game_name = game["name"]
+
+            db_cursor.execute("SELECT * FROM customer_game_info WHERE customer=? AND game=?", (self.name, game_name,))
+            game_data_rows = db_cursor.fetchall()
+
+            if len(game_data_rows) > 1:
+                print(f"Database error: Multiple game info records for {self.name} in {game_name}")
+            elif len(game_data_rows) == 0:
+                continue
+
+            info = game_data_rows[0]
+
             # Get general info
             game_specific_info: dict[str, str] = {
-                "Title": row["title"],
-                "Unlock": row["unlock"],
-                "Favourite Holiday": row["favourite_holiday"],
-                "Group": row["customer_group"]
+                "Title": info["title"],
+                "Unlock": info["unlock"],
+                "Favourite Holiday": info["favourite_holiday"],
+                "Group": info["customer_group"]
             }
+            resource_path = f"{utility.normalise_string(game_name)}/{self._normalised_name}"
 
             # Format unlock text
             unlock = game_specific_info["Unlock"]
@@ -49,24 +64,24 @@ class Customer:
                 # Don't do anything if it is not just a number
                 pass
 
-            # Find portrait images
-            game_normalised_name = row["game"].lower().replace(" ", "_")
-            game_portrait_path = f"customer_portraits/{game_normalised_name}/{self._normalised_name}"
+            # Find portrait image
+            game_portrait_path = f"customer_portraits/{resource_path}"
             if ResourceManager.image_exists(game_portrait_path):
                 game_specific_info["Portrait"] = game_portrait_path
             else:
-                game_specific_info["Portrait"] = "customer_portraits/default"
+                game_specific_info["Portrait"] = self.main_portrait
 
-            # Find order ticket images
-            order_ticket_path = f"order_tickets/{game_normalised_name}/{self._normalised_name}"
+            # Find order ticket image
+            order_ticket_path = f"order_tickets/{resource_path}"
             if ResourceManager.image_exists(order_ticket_path):
                 game_specific_info["Order"] = order_ticket_path
             else:
                 game_specific_info["Order"] = "order_tickets/default"
 
             # Finalise the info dictionary
-            self.game_info[row["game"]] = game_specific_info
+            self.game_info[game_name] = game_specific_info
 
+        # Find the customer's overall title
         self.overall_title = self._get_customer_overall_title()
 
     def _get_customer_overall_title(self):
@@ -86,7 +101,7 @@ class Customer:
             elif "food critic" in customer_title:
                 overall_title = "Food Critic"
                 break
-            # if a customer is still a closer as of the latest game, their title is "closer", otherwise "ex-closer".
+            # If a customer is still a closer as of the latest game, their title is "closer", otherwise "ex-closer".
             elif "closer" in customer_title:
                 overall_title = "Closer"
             elif (overall_title == "Closer") and ("closer" not in customer_title):
@@ -109,7 +124,7 @@ class Customer:
         Customer._CUSTOMER_DICT = {}
 
         db_cursor = DatabaseInterface.get_cursor()
-        db_cursor.execute("SELECT * FROM customers")
+        db_cursor.execute("SELECT * FROM customers ORDER BY customer_number")
         customer_rows = db_cursor.fetchall()
 
         for row in customer_rows:
