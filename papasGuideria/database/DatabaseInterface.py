@@ -28,6 +28,22 @@ class DatabaseInterface:
         return DatabaseInterface._INSTANCE.cursor
 
     @classmethod
+    def create_connection(cls, custom_path: str = None) -> sqlite3.Connection:
+        """Creates a new connection to the database."""
+        if custom_path is None:
+            path = cls._DATABASE_PATH
+        else:
+            path = custom_path
+
+        try:
+            connection = sqlite3.connect(path)
+            connection.row_factory = sqlite3.Row
+            connection.execute("PRAGMA foreign_keys = 1")   # Turns foreign key constraints on
+            return connection
+        except sqlite3.Error as e:
+            raise Exception(str(e))
+
+    @classmethod
     def close_connection(cls) -> None:
         """Closes the database connection."""
         if DatabaseInterface._INSTANCE is None:
