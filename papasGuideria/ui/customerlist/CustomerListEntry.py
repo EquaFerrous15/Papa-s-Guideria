@@ -37,6 +37,7 @@ class CustomerListEntry(QFrame):
 
         # Customer portrait
         portrait = CustomImageLabel(customer.main_portrait)
+        portrait.resize_image(height=500)
         portrait.crop(210, 270, offset_y=10)
         portrait.resize_image(100, 128)
         portrait.setSizePolicy(QSizePolicy.Fixed, QSizePolicy.Fixed)

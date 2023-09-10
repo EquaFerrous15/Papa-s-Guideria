@@ -17,9 +17,24 @@ class CustomImageLabel(QLabel):
             print(f"Image not found. ({image_path})")
         self.setPixmap(self.original_pixmap)
 
-    def resize_image(self, width: int, height: int):
-        """Resizes the image to the given pixel lengths."""
-        resized_pixmap = self.pixmap().scaled(width, height, Qt.IgnoreAspectRatio, Qt.SmoothTransformation)
+    def resize_image(self, width: int = -1, height: int = -1):
+        """
+        Resizes the image to the given lengths exactly, ignoring the original aspect ratio.\n
+        If width is negative (by default), the new width will keep the aspect ratio following the new height given.\n
+        If height is negative (by default), the new height will keep the aspect ratio following the new width given.\n
+        If both are negative, nothing will happen.
+        """
+        if width < 0 and height < 0:
+            return
+
+        if width < 0:
+            scale_factor = height / self.original_pixmap.height()
+            width = self.original_pixmap.width() * scale_factor
+        elif height < 0:
+            scale_factor = width / self.original_pixmap.width()
+            height = self.original_pixmap.height() * scale_factor
+
+        resized_pixmap = self.pixmap().scaled(int(width), int(height), Qt.IgnoreAspectRatio, Qt.SmoothTransformation)
         self.setPixmap(resized_pixmap)
 
     def resize_image_keep_aspect(self, width: int, height: int):
@@ -37,7 +52,7 @@ class CustomImageLabel(QLabel):
     def greyscale(self, is_greyscale: bool):
         """Sets the image as greyscale or normal colours."""
         if is_greyscale:
-            image = QPixmap.toImage(self.original_pixmap)
+            image = QPixmap.toImage(self.pixmap())
             greyscale_image = image.convertToFormat(QImage.Format_Grayscale8)
             grey_pixmap = QPixmap.fromImage(greyscale_image)
             self.setPixmap(grey_pixmap)
@@ -47,4 +62,4 @@ class CustomImageLabel(QLabel):
     def crop(self, width: int, height: int, offset_x: int = 0, offset_y: int = 0):
         """Crops the image to the desired size."""
         crop_rect = QRect(offset_x, offset_y, width, height)
-        self.setPixmap(self.original_pixmap.copy(crop_rect))
+        self.setPixmap(self.pixmap().copy(crop_rect))
