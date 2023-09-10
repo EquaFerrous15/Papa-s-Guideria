@@ -1,6 +1,6 @@
 from PyQt5.QtWidgets import QLabel
 from PyQt5.QtGui import QPixmap, QImage
-from PyQt5.QtCore import Qt
+from PyQt5.QtCore import Qt, QRect
 
 from papasGuideria.resources.ResourceManager import ResourceManager
 
@@ -19,7 +19,7 @@ class CustomImageLabel(QLabel):
 
     def resize_image(self, width: int, height: int):
         """Resizes the image to the given pixel lengths."""
-        resized_pixmap = self.original_pixmap.scaled(width, height, Qt.IgnoreAspectRatio, Qt.SmoothTransformation)
+        resized_pixmap = self.pixmap().scaled(width, height, Qt.IgnoreAspectRatio, Qt.SmoothTransformation)
         self.setPixmap(resized_pixmap)
 
     def resize_image_keep_aspect(self, width: int, height: int):
@@ -44,3 +44,7 @@ class CustomImageLabel(QLabel):
         else:
             self.setPixmap(self.original_pixmap)
 
+    def crop(self, width: int, height: int, offset_x: int = 0, offset_y: int = 0):
+        """Crops the image to the desired size."""
+        crop_rect = QRect(offset_x, offset_y, width, height)
+        self.setPixmap(self.original_pixmap.copy(crop_rect))
