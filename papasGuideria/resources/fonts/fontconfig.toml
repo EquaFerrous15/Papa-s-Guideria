@@ -1,0 +1,24 @@
+##############
+
+# Font config file
+
+# Fonts should be defined as such:
+
+# [In-program font name]
+# name = "Name of font as defined by font file"
+# file = "font.ttf"
+
+# Example:
+# [body_font]
+# name = "Arial Bold"
+# file = "arial.ttf"
+
+##############
+
+[names]
+name = "Baloo"
+file = "Baloo-Regular.ttf"
+
+[body]
+name = "Tajawal Black"
+file = "Tajawal-Black.ttf"
